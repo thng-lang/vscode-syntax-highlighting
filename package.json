@@ -1,0 +1,26 @@
+{
+    "name": "thng",
+    "displayName": "THNG-Lang",
+    "description": "THNG Programming Language",
+    "icon": "thng-icon.png",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.62.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "thng",
+            "aliases": ["THNG", "thng"],
+            "extensions": [".thng"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "thng",
+            "scopeName": "source.thng",
+            "path": "./syntaxes/thng.tmLanguage.json"
+        }]
+    }
+}
