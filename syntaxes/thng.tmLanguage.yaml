@@ -10,8 +10,11 @@ repository:
     patterns:
       - include: "#comments"
       - include: "#keywords"
-      - include: "#strings"
+      - include: "#types"
+      - include: "#builtins"
       - include: "#operators"
+      - include: "#strings"
+      - include: "#statements"
 
   comments:
     patterns:
@@ -47,6 +50,12 @@ repository:
       # A binary operation
       - name: keyword.operator.binary.thng
         match: (&(?!\^)|\||\^|&\^|<<|>>)
+      # Comparison operators
+      - name: keyword.operator.comparison.thng
+        match: (=|>=|<=|<|>)
+      # Logical Operators
+      - name: keyword.operator.logical.thng
+        match: (or|and|!)
 
   strings:
     patterns:
@@ -67,3 +76,64 @@ repository:
         endCaptures:
           - name: punctuation.definition.string.end.thng
 
+  statements:
+    patterns:
+      # An assignment operation
+      - comment: This is a assignment operation.
+        match: ((([a-zA-Z]|_)+)\s?(:))
+        captures:
+          0:
+            name: variable.other.assignment.thng
+          4:
+            name: keyword.assignment.thng
+      # Function decalarations
+      - match: (fn)(?:\s?(([a-zA-Z](?:[0-9]?|_))+))(?:\s?\(((\w+|\s|,)+)?\))
+        captures:
+          1:
+            name: keyword.function.thng
+          2:
+            name: entity.name.function.thng
+          4:
+            name: meta.function.args.thng
+            patterns:
+              - include: '#fnparams'
+      # Function calls
+      - match: (([a-zA-Z]|_|[0-9])+)(:?\s?\((([a-zA-z0-9]|_|\s|,)+))\)
+        captures:
+          1:
+            name: entity.name.function
+          4:
+            name: meta.function.call.params
+  fnparams:
+    patterns:
+      - match: (([a-zA-Z]|_|[0-9])+)(:?\s([a-zA-Z]|_|[0-9])+)(,)?
+        captures:
+          1:
+            name: meta.function.argument.thng
+            patterns:
+              - include: "#builtins"
+              - match: (([a-zA-Z]|_)+)
+                name: support.other.type.thng
+          3:
+            name: entity.name.paramater.thng
+
+  types:
+    patterns:
+      # Match any "type"
+      - match: <(([a-zA-Z]|_)+)>
+        captures:
+          1:
+            name: entity.name.meta.type.thng
+            patterns:
+              - include: "#builtins"
+  builtins:
+    patterns:
+      # Numeric types
+      - name: support.primitive.thng
+        match: (((u|i)(8|16|32|64|128))|(f(32|64)))
+      # Numbers
+      - match: ([0-9](?:.))
+        name: constant.numeric.decimal.thng
+      # Literal types
+      - name: support.primitive.thng
+        match: (bool|string|bytes|dword|word|ptr|addr)

@@ -1,14 +1,16 @@
 assn <int> x: 10;
-assn <int> y: 20;
+assn <int> y: 20.12091029;
 
-[int]
-fn test(int x, int y) {
+<int>
+fn test(u8 x, int y) {
     x + y;
 }
 
-assn <int> value: test(x, y);
+assn <u8> value: test(x, y);
 
 action(a, b);
+
+
 value: 10;
 
-if x == x {}
+if x = x and (!) {}
