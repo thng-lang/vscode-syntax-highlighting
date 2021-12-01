@@ -1,0 +1,14 @@
+assn <int> x: 10;
+assn <int> y: 20;
+
+[int]
+fn test(int x, int y) {
+    x + y;
+}
+
+assn <int> value: test(x, y);
+
+action(a, b);
+value: 10;
+
+if x == x {}

@@ -1,58 +1,110 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "thng-lang",
-	"patterns": [
-		{
-			"include": "#comments"
-		},
-		{
-			"include": "#operators"
-		},
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#numbers"
-		},
-		{
-			"include": "#statements"
-		},
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
-	],
-	"repository": {
-		"statements": {
-			"patterns": [{
-				"name": "keyword.control.thng",
-				"match": "\\b(if|other|else|loop|res)\\b"
-			}]
-		},
-		"operators": {
-			"patterns": [
-				{
-					"match": "([\\+\\-\\*\\^\/])",
-					"name": "keyword.operators.arithmetic.thng"
-				},
-				{
-					"match": "([\\"
-				}
-			]
-		},
-		"strings": {
-			"name": "string.quoted.double.thng",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.thng",
-					"match": "\\\\."
-				}
-			]
-		}
-	},
-	"scopeName": "source.thng"
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "thng-lang",
+  "scopeName": "source.thng",
+  "patterns": [
+    {
+      "include": "#root"
+    }
+  ],
+  "repository": {
+    "root": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#operators"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.thng",
+          "begin": "(//)",
+          "beginCaptures": [
+            {
+              "name": "punctuation.definition.comment.thng"
+            }
+          ],
+          "end": "(?:\n|$)"
+        },
+        {
+          "name": "comment.line.double-slash.thng",
+          "begin": "(\\#)",
+          "beginCaptures": [
+            {
+              "name": "punctuation.definition.comment.thng"
+            }
+          ],
+          "end": "(?:\\n|$)"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.assignment.thng",
+          "match": "\\b(assn|assign|stck|stack)\\b"
+        },
+        {
+          "name": "keyword.control.thng",
+          "match": "\\b(if|else|other|loop|res)"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arithmetic.thng",
+          "match": "(\\+|\\-|\\*|/|%)"
+        },
+        {
+          "name": "keyword.operator.binary.thng",
+          "match": "(&(?!\\^)|\\||\\^|&\\^|<<|>>)"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.thng",
+          "begin": "\"",
+          "beginCaptures": [
+            {
+              "name": "punctuation.definition.string.begin.thng"
+            }
+          ],
+          "end": "(\"|\\n|$)",
+          "endCaptures": [
+            {
+              "name": "punctuation.definition.string.end.thng"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.thng",
+          "begin": "'",
+          "beginCaptures": [
+            {
+              "name": "punctuation.definition.string.begin.thng"
+            }
+          ],
+          "end": "'",
+          "endCaptures": [
+            {
+              "name": "punctuation.definition.string.end.thng"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

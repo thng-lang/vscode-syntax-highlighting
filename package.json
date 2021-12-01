@@ -11,16 +11,31 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "thng",
-            "aliases": ["THNG", "thng"],
-            "extensions": [".thng"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "thng",
-            "scopeName": "source.thng",
-            "path": "./syntaxes/thng.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "thng",
+                "aliases": [
+                    "THNG",
+                    "thng"
+                ],
+                "extensions": [
+                    ".thng"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "thng",
+                "scopeName": "source.thng",
+                "path": "./syntaxes/thng.tmLanguage.json"
+            }
+        ]
+    },
+    "scripts": {
+        "build": "npx js-yaml syntaxes/thng.tmLanguage.yaml > syntaxes/thng.tmLanguage.json"
+    },
+    "devDependencies": {
+        "js-yaml": "^4.1.0"
     }
 }

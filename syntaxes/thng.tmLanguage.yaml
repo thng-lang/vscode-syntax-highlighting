@@ -1,0 +1,69 @@
+---
+$schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: thng-lang
+scopeName: source.thng
+patterns:
+  - include: "#root"
+
+repository:
+  root:
+    patterns:
+      - include: "#comments"
+      - include: "#keywords"
+      - include: "#strings"
+      - include: "#operators"
+
+  comments:
+    patterns:
+      # A double slashed comment
+      - name: comment.line.double-slash.thng
+        begin: "(\/\/)"
+        beginCaptures:
+          - name: punctuation.definition.comment.thng
+        end: "(?:\n|$)"
+      # A pound comment
+      - name: comment.line.double-slash.thng
+        begin: (\#)
+        beginCaptures:
+          - name: punctuation.definition.comment.thng
+        end: (?:\n|$)
+
+  keywords:
+    patterns:
+      # An assignment
+      - name: keyword.assignment.thng
+        match: \b(assn|assign|stck|stack)\b
+
+      # Control words
+      - name: keyword.control.thng
+        match: \b(if|else|other|loop|res)
+
+
+  operators:
+    patterns:
+      # An arithmetic operation
+      - name: keyword.operator.arithmetic.thng
+        match: (\+|\-|\*|/|%)
+      # A binary operation
+      - name: keyword.operator.binary.thng
+        match: (&(?!\^)|\||\^|&\^|<<|>>)
+
+  strings:
+    patterns:
+      # Double qouted strings
+      - name: string.quoted.double.thng
+        begin: '"'
+        beginCaptures:
+          - name: punctuation.definition.string.begin.thng
+        end: '("|\n|$)'
+        endCaptures:
+          - name: punctuation.definition.string.end.thng
+      # Single quoted strings
+      - name: string.quoted.single.thng
+        begin: "'"
+        beginCaptures:
+          - name: punctuation.definition.string.begin.thng
+        end: "'"
+        endCaptures:
+          - name: punctuation.definition.string.end.thng
+
