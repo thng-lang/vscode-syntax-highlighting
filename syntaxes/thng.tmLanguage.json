@@ -65,7 +65,7 @@
         },
         {
           "name": "keyword.control.thng",
-          "match": "\\b(if|else|other|loop|res)"
+          "match": "\\b(if|else|other|loop|res|return|quit|cont)\\b"
         }
       ]
     },
@@ -157,15 +157,75 @@
           }
         },
         {
-          "match": "(([a-zA-Z]|_|[0-9])+)(:?\\s?\\((([a-zA-z0-9]|_|\\s|,)+))\\)",
-          "captures": {
+          "begin": "(([a-zA-Z]|_|[0-9])+)(:?\\s?\\()",
+          "beginCaptures": {
             "1": {
-              "name": "entity.name.function"
+              "name": "entity.name.function.thng"
             },
             "4": {
-              "name": "meta.function.call.params"
+              "name": "meta.function.call.params.thng"
+            }
+          },
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "#fnparams"
+            }
+          ]
+        },
+        {
+          "begin": "(def)(:?\\s?)(([a-zA-Z]|_|[0-9])+)\\s?\\{",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.data.thng"
+            },
+            "2": {
+              "name": "meta.definition.thing.thng"
+            },
+            "3": {
+              "name": "entity.name.type.definition.thng"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#definitionbody"
+            }
+          ]
+        }
+      ]
+    },
+    "definitionbody": {
+      "patterns": [
+        {
+          "match": "((([a-zA-Z]|_)+)\\s?(:))\\s?((([a-zA-Z]|_|[0-9])+))?",
+          "captures": {
+            "2": {
+              "name": "variable.other.property.thng"
+            },
+            "6": {
+              "name": "entity.name.meta.type.thng",
+              "patterns": [
+                {
+                  "include": "#builtins"
+                }
+              ]
             }
           }
+        },
+        {
+          "begin": "(apply)\\s?\\{",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.apply.thng"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#root"
+            }
+          ]
         }
       ]
     },
@@ -190,6 +250,12 @@
               "name": "entity.name.paramater.thng"
             }
           }
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#builtins"
         }
       ]
     },
@@ -223,6 +289,10 @@
         {
           "name": "support.primitive.thng",
           "match": "(bool|string|bytes|dword|word|ptr|addr)"
+        },
+        {
+          "name": "constant.language.boolean.thng",
+          "match": "\\b(true|false)\\b"
         }
       ]
     }

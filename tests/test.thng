@@ -10,7 +10,27 @@ assn <u8> value: test(x, y);
 
 action(a, b);
 
+actionpair();
 
 value: 10;
 
-if x = x and (!) {}
+if x = x and !false {}
+
+def Type {
+    property: Pairs;
+    name: string;
+
+    apply {
+        <int> fn test() {
+            assign property: 10;
+            property += 10;
+            return property;
+        }
+    }
+}
+
+
+
+assn <Type> x: { 255, "this is a name" };
+
+print("test");

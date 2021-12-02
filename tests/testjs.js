@@ -1,1 +1,0 @@
-let apple = 10;
